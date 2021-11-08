@@ -7,6 +7,8 @@
 	<body>
 	<h1>Tasks</h1>
 	<h2>User</h2>
+	<a sec:authorize="isAuthenticated()" href="#" onclick="document.querySelector('#form-login').submit()">logout</a>
+	<form id="form-login" th:action="@{/logout}" method="POST"></form>
 	<ul>
 		<li th:each="task : ${tasks}">
 			<span th:text="${task.status}">Status</span>

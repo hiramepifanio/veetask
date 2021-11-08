@@ -1,0 +1,21 @@
+<!DOCTYPE HTML5>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+	</head>
+	
+	<body>
+	<h1>Login</h1>
+	<form th:action="@{/login}" method="POST">
+		<div>
+			<label for="username">Username</label>
+			<input name="username" placeholder="Username"/>
+		</div>
+		<div>
+			<label for="password">Password</label>
+			<input name="password" placeholder="Password"/>
+		</div>
+		<button Type="submit">Login</button>
+	</form>
+	</body>
+</html>
