@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Task {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String description;
@@ -47,5 +47,13 @@ public class Task {
 
 	public void setStatus(TaskStatus status) {
 		this.status = status;
+	}
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 }

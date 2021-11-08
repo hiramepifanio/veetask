@@ -1,0 +1,18 @@
+<!DOCTYPE HTML5>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+	</head>
+	
+	<body>
+	<h1>Tasks</h1>
+	<h2>User</h2>
+	<ul>
+		<li th:each="task : ${tasks}">
+			<span th:text="${task.status}">Status</span>
+			<span th:text="${task.description}">Task description</span>
+		</li>
+	</ul>
+	<a href="/user/tasks/new">New task</a>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE HTML5>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+	</head>
+	
+	<body>
+	<h1>New Task</h1>
+	<h2>User</h2>
+	<form th:object="${requestNewTask}" th:action="@{/user/tasks/new}" method="POST">
+		<div>
+			<label for="description">Description</label>
+			<input th:field="*{description}" th:errorclass="is-invalid" placeholder="Task description"/>
+			<small>Describe your new task.</small>
+			<div th:erros="*{description}">
+				Erros da url do produto.
+			</div>
+		</div>
+		<button Type="submit">Submit</button>
+	</form>
+	</body>
+</html>
