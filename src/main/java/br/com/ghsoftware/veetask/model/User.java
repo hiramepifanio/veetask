@@ -18,6 +18,8 @@ public class User {
 
 	private Boolean enabled;
 
+	private String name;
+
 	@OneToMany
 	private List<Task> tasks;
 
@@ -51,5 +53,13 @@ public class User {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

@@ -8,8 +8,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
@@ -22,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/", "/home").permitAll()
+				.antMatchers("/", "/home", "/register").permitAll()
 				.anyRequest().authenticated()
 				.and()
 			.formLogin(form -> form
@@ -37,15 +35,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
-		UserDetails user = User.builder()
-				.username("gabi")
-				.password(encoder.encode("gabi"))
-				.roles("ADM")
-				.build();
+//		UserDetails user = User.builder()
+//				.username("gabi")
+//				.password(encoder.encode("gabi"))
+//				.roles("ADM")
+//				.build();
 		
 		auth.jdbcAuthentication()
 				.dataSource(dataSource)
-				.passwordEncoder(encoder)
-				.withUser(user);
+				.passwordEncoder(encoder);
+//				.withUser(user);
 	}
 }
