@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.ghsoftware.veetask.dto.RequestNewTask;
+import br.com.ghsoftware.veetask.dto.TaskDto;
 import br.com.ghsoftware.veetask.model.Task;
 import br.com.ghsoftware.veetask.model.TaskStatus;
 import br.com.ghsoftware.veetask.model.User;
@@ -49,6 +51,16 @@ public class TaskController {
 		return "user/tasks";
 	}
 	
+	@GetMapping("/json")
+	@ResponseBody
+	public List<TaskDto> tasksJson(Principal principal) {
+		
+		String username = principal.getName();
+		List<Task> tasks = taskRepository.findByUsername(username);
+		
+		return TaskDto.convert(tasks);
+	}
+	
 	@GetMapping("/filter/{status}")
 	public String byStatus(@PathVariable String status, RequestNewTask request, Model model, Principal principal) {
 		
@@ -65,10 +77,10 @@ public class TaskController {
 		return "user/tasks";
 	}
 	
-	@GetMapping("/new")
-	public String newTaskForm(RequestNewTask request) {	
-		return "user/new";
-	}
+//	@GetMapping("/new")
+//	public String newTaskForm(RequestNewTask request) {	
+//		return "user/new";
+//	}
 	
 	@PostMapping("/new")
 	public String newTask(RequestNewTask request, BindingResult result) {

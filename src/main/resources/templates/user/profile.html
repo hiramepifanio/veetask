@@ -1,0 +1,66 @@
+<!DOCTYPE HTML5>
+<html>
+	<head th:replace="~{base :: head}"></head>
+	
+	<body>
+	
+		<div th:replace="~{base :: logo}"></div>
+	
+		<div class="container">
+	
+			<div th:replace="~{base :: title('My tasks')}"></div>
+	
+			<div th:replace="~{base :: user-nav}"></div>
+			
+			<div class="row justify-content-center">
+				<div class="col-6">
+					<div class="row">
+					
+						<div class="col-12">
+							<form class="form-inline" th:object="${requestNewTask}" th:action="@{/user/tasks/new}" method="POST">
+								<div class="row">
+									<div class="col-1"></div>
+									<div class="form-group col-10">
+										<input class="form-control col" id="description" th:field="*{description}" th:errorclass="is-invalid" placeholder="Add a task..."/>
+									</div>
+									<div class="col-1 p-0">
+										<button class="btn btn-primary" Type="submit">&#128930;</button>
+									</div>
+								</div>
+							</form>
+						</div>
+				
+						<div class="col-12 p-0">
+							<ul class="list-group-flush ps-0">
+								<li class="list-group-item" th:each="task : ${tasks}">
+									<div class="row">
+										<th:block th:switch="${task.status.toString()}">
+										<div class="col-1 p-0" th:case="'TODO'">
+											<form class="mb-0" action="#" th:action="@{'/user/tasks/check/{id}'(id=${task.id})}" th:method="POST" >
+												<button class="btn btn-secondary" type="submit">&#9744;</button>
+											</form>
+										</div>
+										<div class="col-1 p-0" th:case="'DONNE'">
+											<form class="mb-0" action="#" th:action="@{'/user/tasks/uncheck/{id}'(id=${task.id})}" th:method="POST" >
+												<button class="btn btn-success" type="submit">&#128504;</button>
+											</form>
+										</div>
+										</th:block>
+										<div class="col-10" th:text="${task.description}">Task description</div>
+										<div class="col-1 p-0">
+											<form class="mb-0" action="#" th:action="@{'/user/tasks/{status}/delete/{id}'(status=${status}, id=${task.id})}" th:method="POST" >
+												<button class="btn btn-danger" type="submit">&#10007;</button>
+											</form>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>

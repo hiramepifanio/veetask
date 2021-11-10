@@ -20,7 +20,7 @@ public class User {
 
 	private String name;
 
-	@OneToMany
+	@OneToMany(mappedBy = "owner")
 	private List<Task> tasks;
 
 	public List<Task> getTasks() {

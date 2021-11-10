@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,17 +21,13 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@PostMapping("/register")
-	public String newTask(RequestNewUser request, BindingResult result) {
-		
-//		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//		User user = userRepository.findByUsername(username);
-//		
-//		Task task = request.toTask();
-//		task.setOwner(user);
-//		
-//		taskRepository.save(task);
-		
+	@GetMapping("/profile")
+	public String profile(RequestNewUser request, BindingResult result) {
 		return "redirect:/user/tasks";
 	}
+	
+//	@PostMapping("/register")
+//	public String newTask(RequestNewUser request, BindingResult result) {
+//		return "redirect:/user/tasks";
+//	}
 }
