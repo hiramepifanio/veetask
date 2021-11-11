@@ -18,6 +18,17 @@ public class TaskDto {
 		this.status = task.getStatus();
 	}
 
+	public static List<TaskDto> convertList(List<Task> tasks) {
+		List<TaskDto> tasksDto = new ArrayList<>();
+		
+		for (Task task : tasks) {
+			TaskDto taskDto = new TaskDto(task);
+			tasksDto.add(taskDto);
+		}
+		
+		return tasksDto;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -34,14 +45,11 @@ public class TaskDto {
 		this.status = status;
 	}
 
-	public static List<TaskDto> convert(List<Task> tasks) {
-		List<TaskDto> tasksDto = new ArrayList<>();
-		
-		for (Task task : tasks) {
-			TaskDto taskDto = new TaskDto(task);
-			tasksDto.add(taskDto);
-		}
-		
-		return tasksDto;
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

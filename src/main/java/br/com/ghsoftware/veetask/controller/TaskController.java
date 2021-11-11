@@ -42,23 +42,10 @@ public class TaskController {
 		
 		User user = userRepository.findByUsername(username);
 		
-		List<Task> tasks = taskRepository.findByUsername(username);
-		
-		model.addAttribute("tasks", tasks);
 		model.addAttribute("user", user);
 		model.addAttribute("status", "all");
 			
 		return "user/tasks";
-	}
-	
-	@GetMapping("/json")
-	@ResponseBody
-	public List<TaskDto> tasksJson(Principal principal) {
-		
-		String username = principal.getName();
-		List<Task> tasks = taskRepository.findByUsername(username);
-		
-		return TaskDto.convert(tasks);
 	}
 	
 	@GetMapping("/filter/{status}")
@@ -76,61 +63,5 @@ public class TaskController {
 			
 		return "user/tasks";
 	}
-	
-//	@GetMapping("/new")
-//	public String newTaskForm(RequestNewTask request) {	
-//		return "user/new";
-//	}
-	
-	@PostMapping("/new")
-	public String newTask(RequestNewTask request, BindingResult result) {
-		
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		User user = userRepository.findByUsername(username);
-		
-		Task task = request.toTask();
-		task.setOwner(user);
-		
-		taskRepository.save(task);
-		
-		return "redirect:/user/tasks";
-	}
-	
-	@PostMapping("/check/{id}")
-	public String checkTask(@PathVariable Integer id) {
-		
-		if (taskRepository.existsById(id)) {
-			Task task = taskRepository.findById(id).get();
-			task.setStatus(TaskStatus.DONNE);
-			taskRepository.save(task);
-		}
-		
-		return "redirect:/user/tasks";
-	}
-	
-	@PostMapping("/uncheck/{id}")
-	public String uncheckTask(@PathVariable Integer id) {
-		
-		if (taskRepository.existsById(id)) {
-			Task task = taskRepository.findById(id).get();
-			task.setStatus(TaskStatus.TODO);
-			taskRepository.save(task);
-		}
-		
-		return "redirect:/user/tasks";
-	}
-	
-	@PostMapping("{status}/delete/{id}")
-	public String deleteTask(@PathVariable String status, @PathVariable Integer id) {
-		
-		if (taskRepository.existsById(id)) {
-			taskRepository.deleteById(id);
-		}
 
-		if (status.equals("all")) {
-			return "redirect:/user/tasks";
-		}
-		
-		return "redirect:/user/tasks/filter/" + status;
-	}
 }

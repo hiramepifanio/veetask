@@ -24,6 +24,20 @@ public class Task {
 	
 	@ManyToOne
 	private User owner;
+	
+	public Task() {}
+
+	public Task(String description, User owner) {
+		this.description = description;
+		this.status = TaskStatus.TODO;
+		this.owner = owner;
+	}
+	
+	public Task(String description, TaskStatus status, User owner) {
+		this.description = description;
+		this.status = status;
+		this.owner = owner;
+	}
 
 	public Integer getId() {
 		return id;

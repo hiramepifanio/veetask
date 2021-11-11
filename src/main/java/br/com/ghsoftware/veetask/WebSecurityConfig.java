@@ -28,7 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.defaultSuccessUrl("/user/tasks", true)
 				.permitAll())
 			.logout()
-				.permitAll();
+				.permitAll()
+				.and()
+			.csrf().disable();
 	}
 	
 	@Override
